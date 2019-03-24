@@ -887,8 +887,16 @@ on charger
     setprop persist.sys.usb.config mass_storage
     write /sys/class/leds/white/trigger "battery-full"
 
+service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
+    class late_start
+    user root
+    group root system wakelock graphics
+    disabled
+    oneshot
+
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
+    start qcom-post-boot
     setprop sys.io.scheduler anxiety
 
     #Reset the "read ahead" setting for system patition

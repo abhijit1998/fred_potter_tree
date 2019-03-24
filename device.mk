@@ -322,7 +322,8 @@ PRODUCT_PACKAGES += \
     init.mmi.usb.rc \
     init.qcom.rc \
     init.qcom.ril.sh \
-    init.qcom.early_boot.sh
+    init.qcom.early_boot.sh \
+    init.qcom.post_boot.sh
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/ueventd.qcom.rc:system/vendor/ueventd.rc
