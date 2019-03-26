@@ -905,3 +905,16 @@ on property:sys.boot_completed=1
 
     #WDSP FW boot sysfs node used by STHAL
     chown media audio /sys/kernel/wdsp0/boot
+
+   # Set thermal restrictions
+   write /sys/kernel/msm_thermal/enabled 0
+   write /sys/kernel/msm_thermal/zone0 "2016000 37 35"
+   write /sys/kernel/msm_thermal/zone1 "1804800 38 37"
+   write /sys/kernel/msm_thermal/zone2 "1689600 39 38"
+   write /sys/kernel/msm_thermal/zone3 "1401600 40 39"
+   write /sys/kernel/msm_thermal/zone4 "1036800 41 40"
+   write /sys/kernel/msm_thermal/zone5 "1036800 42 41
+   write /sys/kernel/msm_thermal/zone6 "1036800 44 42"
+   write /sys/kernel/msm_thermal/zone7 "652800 48 44"
+   write /sys/kernel/msm_thermal/sampling_ms 3000
+   write /sys/kernel/msm_thermal/enabled 1
