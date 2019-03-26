@@ -235,6 +235,9 @@ function configure_zram_parameters() {
     # For >=4GB Non-Go device, size = 1GB
     # And enable lz4 zram compression for Go targets.
 
+	# UKSM SETTINGS FOR 2-3 GB RAM DEVICES.
+	# UKSM DISABLED ON >=4 GB RAM DEVICES.
+
     if [ "$low_ram" == "true" ]; then
         echo lz4 > /sys/block/zram0/comp_algorithm
     fi
@@ -246,11 +249,17 @@ function configure_zram_parameters() {
             echo 536870912 > /sys/block/zram0/disksize
 	elif [ $MemTotal -le 2097152 ]; then
             echo 536870912 > /sys/block/zram0/disksize
+	    echo 1 > /sys/kernel/mm/ksm/run
+            echo 1 > /sys/kernel/mm/uksm/run
 	elif [ $MemTotal -le 3145728 ]; then
             echo 805306368 > /sys/block/zram0/disksize
+            echo 1 > /sys/kernel/mm/ksm/run
+            echo 1 > /sys/kernel/mm/uksm/run
         else
             # Set Zram disk size=1GB for >=4GB Non-Go targets.
             echo 1073741824 > /sys/block/zram0/disksize
+            echo 0 > /sys/kernel/mm/ksm/run
+            echo 0 > /sys/kernel/mm/uksm/run
         fi
         mkswap /dev/block/zram0
         swapon /dev/block/zram0 -p 32758
